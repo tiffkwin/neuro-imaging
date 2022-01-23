@@ -57,18 +57,33 @@ def get_S01_T1_img():
   print(img.shape)
   return img
 
-def get_slice(img, start_slice=50, step=0):
+def get_horizontal_slice(img, start_slice=50, step=0):
   img_slice = img.get_fdata()[:,:,start_slice+step]
   return img_slice
+
+def get_coronal_slice(img, start_slice=50, step=0):
+  img_slice = img.get_fdata()[:,start_slice+step,:]
+  return img_slice
+
+def get_sagittal_slice(img, start_slice=50, step=0):
+  img_slice = img.get_fdata()[start_slice+step,:,:]
+  return img_slice
+
+def get_slice(img, orientation, start_slice=50, step=0):
+  if orientation == 'horizontal':
+    return get_horizontal_slice(img, start_slice, step)
+  if orientation == 'sagittal':
+    return get_sagittal_slice(img, start_slice, step)
+  if orientation == 'coronal':
+    return get_coronal_slice(img, start_slice, step)
 
 # plot fmri by slice
 def plot_slice(img_slice):
   fig, ax = plt.subplots()
   ax.imshow(img_slice)
-  plt.show()
 
-def plot_S01_T1_slice():
-  plot_slice(get_slice(get_S01_T1_img()))
+def plot_S01_T1_slice(orientation):
+  plot_slice(get_slice(get_S01_T1_img(), orientation))
 
 def plot_slices(slices):
   num_slices = len(slices)
@@ -77,11 +92,10 @@ def plot_slices(slices):
     if idx < num_slices:
       img_slice = slices[idx]
       ax.imshow(img_slice)
-  plt.show()
 
-def plot_S01_T1_slices(num_slices):
+def plot_S01_T1_slices(num_slices, orientation):
   img = get_S01_T1_img()
-  slices = [get_slice(img, 40, step) for step in range(0,num_slices)]
+  slices = [get_slice(img, orientation, 40, step) for step in range(0,num_slices)]
   plot_slices(slices)
 
 # show_first_ten_files()
@@ -91,5 +105,9 @@ def plot_S01_T1_slices(num_slices):
 # show_files_by_task('localizer')
 # show_first_participant_filename_by_task('localizer')
 # show_layout_as_dataframe()
-# plot_S01_T1_slice()
-plot_S01_T1_slices(9)
+# plot_S01_T1_slice('horizontal')
+plot_S01_T1_slices(9, 'horizontal')
+plot_S01_T1_slices(9, 'sagittal')
+plot_S01_T1_slices(9, 'coronal')
+
+plt.show()
