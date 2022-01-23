@@ -6,6 +6,7 @@ Data from https://gin.g-node.org/ljchang/Localizer
 #### Prerequisites
 - Have python installed
 - Have pip installed
+- Download a BIDS dataset
 
 #### Start Command
 ```
