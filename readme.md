@@ -1,4 +1,6 @@
-## Neuroimaging Intro Project
+## 🧠 Neuroimaging Intro Project
+this is me learning about neuro imaging data analysis
+
 Tutorial material from https://dartbrains.org/
 Data from https://gin.g-node.org/ljchang/Localizer
 
