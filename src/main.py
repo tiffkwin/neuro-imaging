@@ -4,6 +4,8 @@ import nibabel as nib
 import datalad.api as dl
 import matplotlib.pyplot as plt
 from math import ceil
+from nilearn.plotting import view_img, plot_glass_brain, plot_anat, plot_epi, plot_roi
+from nltools.data import Brain_Data
 
 data_dir = './data/Localizer'
 layout = BIDSLayout(data_dir, derivatives=True)
@@ -105,9 +107,18 @@ def plot_S01_T1_slices(num_slices, orientation):
 # show_files_by_task('localizer')
 # show_first_participant_filename_by_task('localizer')
 # show_layout_as_dataframe()
-# plot_S01_T1_slice('horizontal')
-plot_S01_T1_slices(9, 'horizontal')
-plot_S01_T1_slices(9, 'sagittal')
-plot_S01_T1_slices(9, 'coronal')
+
+# plot_S01_T1_slice('sagittal')
+# plot_S01_T1_slices(9, 'horizontal')
+# plot_S01_T1_slices(9, 'sagittal')
+# plot_S01_T1_slices(9, 'coronal')
+
+# plot_anat(get_S01_T1_img())
+# plot_anat(get_S01_T1_img(), draw_cross=False, display_mode='z')
+# plot_glass_brain(get_S01_T1_img())
+
+# amygdala_mask = Brain_Data('https://neurovault.org/media/images/1290/FSL_BAmyg_thr0.nii.gz').to_nifti()
+# plot_roi(amygdala_mask, get_S01_T1_img())
+# plot_glass_brain(amygdala_mask)
 
 plt.show()
